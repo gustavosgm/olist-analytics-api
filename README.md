@@ -1,6 +1,6 @@
 # Olist Analytics API
 
-Criei este projeto para aprender SQL e construção de APIs a partir de uma pergunta que veio da minha experiência com e-commerce: quais estados concentram mais vendas em unidades e qual categoria lidera em cada um? Usei PostgreSQL para analisar os dados públicos da Olist e desenvolvi uma API em Node.js com Express para disponibilizar os resultados. O painel em React e TypeScript usa componentes do Material UI para visualizar a resposta dessa consulta.
+Projeto criado com intuito de aprender SQL e construção de APIs a partir de uma pergunta que veio da minha experiência com e-commerce: quais estados concentram mais vendas em unidades e qual categoria lidera em cada um? Usei PostgreSQL para analisar os dados públicos da Olist e uma API em Node.js com Express para disponibilizar os resultados. O painel em React e TypeScript usa componentes do Material UI apenas para visualizar a resposta dessa consulta.
 
 ## O que o projeto faz
 
