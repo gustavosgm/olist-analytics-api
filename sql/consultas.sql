@@ -83,3 +83,37 @@ LEFT JOIN order_reviews
 WHERE order_reviews.review_id IS NULL;
 -- resultado: 768 pedidos ficaram sem avaliacao.
   
+-- 11. Quantas unidades foram vendidas para cada estado e qual categoria mais vendeu em cada um?
+
+WITH vendas_por_categoria AS (
+    SELECT customers.customer_state AS estado,
+           products.product_category_name AS categoria,
+           COUNT(*) AS unidades
+    FROM order_items 
+
+    JOIN products ON products.product_id = order_items.product_id
+
+    
+    JOIN orders ON orders.order_id = order_items.order_id
+    JOIN customers ON customers.customer_id = orders.customer_id
+
+    GROUP BY customers.customer_state, products.product_category_name
+)
+SELECT vendas.estado,
+      
+       SUM(vendas.unidades) AS unidades_vendidas,
+       (
+           -- Procura a categoria mais vendida dentro do estado atual.
+           SELECT busca.categoria
+           FROM vendas_por_categoria AS busca
+           WHERE busca.estado = vendas.estado
+             AND busca.categoria IS NOT NULL
+           ORDER BY busca.unidades DESC, busca.categoria
+           LIMIT 1
+       ) AS categoria_mais_vendida
+FROM vendas_por_categoria AS vendas
+GROUP BY vendas.estado 
+ORDER BY unidades_vendidas DESC, vendas.estado;
+
+-- resultado: SP liderou com 47449 unidades no total.
+-- A categoria mais vendida em SP foi cama_mesa_banho.  
